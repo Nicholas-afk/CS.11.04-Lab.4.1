@@ -3,7 +3,8 @@ public class Main {
     // 1. parenthesesCheck
     public static boolean parenthesesCheck(String str) {
         int balance = 0;
-        for (char c : str.toCharArray()) {
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
             if (c == '(') {
                 balance++;
             } else if (c == ')') {
@@ -18,65 +19,69 @@ public class Main {
 
     // 2. reverseInteger
     public static String reverseInteger(int num) {
-        return new StringBuilder().append(num).reverse().toString();
+        String numStr = Integer.toString(num);
+        String reversed = "";
+        for (int i = numStr.length() - 1; i >= 0; i--) {
+            reversed += numStr.charAt(i);
+        }
+        return reversed;
     }
 
     // 3. encryptThis
     public static String encryptThis(String text) {
         String[] words = text.split(" ");
-        StringBuilder encrypted = new StringBuilder();
+        String encrypted = "";
 
         for (String word : words) {
-            StringBuilder sb = new StringBuilder();
             char firstChar = word.charAt(0);
-            sb.append((int) firstChar);
+            String encryptedWord = (int) firstChar + "";
 
             if (word.length() > 2) {
-                sb.append(word.charAt(word.length() - 1));
-                sb.append(word.substring(2, word.length() - 1));
-                sb.append(word.charAt(1));
+                encryptedWord += word.charAt(word.length() - 1);
+                encryptedWord += word.substring(2, word.length() - 1);
+                encryptedWord += word.charAt(1);
             } else if (word.length() == 2) {
-                sb.append(word.charAt(1));
+                encryptedWord += word.charAt(1);
             }
 
-            encrypted.append(sb).append(" ");
+            encrypted += encryptedWord + " ";
         }
-        return encrypted.toString().trim();
+        return encrypted.trim();
     }
 
     // 4. decipherThis
     public static String decipherThis(String text) {
         String[] words = text.split(" ");
-        StringBuilder decrypted = new StringBuilder();
+        String decrypted = "";
 
         for (String word : words) {
-            StringBuilder number = new StringBuilder();
+            String number = "";
             int i = 0;
 
             while (i < word.length() && Character.isDigit(word.charAt(i))) {
-                number.append(word.charAt(i));
+                number += word.charAt(i);
                 i++;
             }
 
-            char firstChar = (char) Integer.parseInt(number.toString());
-            StringBuilder sb = new StringBuilder().append(firstChar);
+            char firstChar = (char) Integer.parseInt(number);
+            String decryptedWord = firstChar + "";
 
             if (i < word.length()) {
                 int lengthAfterNumber = word.length() - i;
                 if (lengthAfterNumber > 2) {
-                    sb.append(word.charAt(word.length() - 1));
-                    sb.append(word.substring(i + 1, word.length() - 1));
-                    sb.append(word.charAt(i));
+                    decryptedWord += word.charAt(word.length() - 1);
+                    decryptedWord += word.substring(i + 1, word.length() - 1);
+                    decryptedWord += word.charAt(i);
                 } else if (lengthAfterNumber == 2) {
-                    sb.append(word.charAt(word.length() - 1));
-                    sb.append(word.charAt(i));
+                    decryptedWord += word.charAt(word.length() - 1);
+                    decryptedWord += word.charAt(i);
                 } else {
-                    sb.append(word.substring(i));
+                    decryptedWord += word.substring(i);
                 }
             }
 
-            decrypted.append(sb).append(" ");
+            decrypted += decryptedWord + " ";
         }
-        return decrypted.toString().trim();
+        return decrypted.trim();
     }
 }
